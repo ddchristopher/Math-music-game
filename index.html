@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#07080f" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2307080f'/%3E%3Cpath d='M4 16h5l3-8 4 16 3.5-11 2.5 6h6' fill='none' stroke='%23c04cff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="A mental arithmetic game where your streak builds a bass-heavy techno track."
+    />
+    <title>PULSE — mental math, built on a beat</title>
+  </head>
+  <body>
+    <canvas id="visualizer" aria-hidden="true"></canvas>
+
+    <main id="app">
+      <!-- Start screen -->
+      <section id="start-screen" class="overlay">
+        <h1 class="logo">PULSE</h1>
+        <p class="tagline">Mental math. The streak builds the track.</p>
+        <ul class="how">
+          <li><strong>Answer fast.</strong> Speed multiplies your score, up to 2×.</li>
+          <li><strong>Keep the streak.</strong> Every few in a row adds a new layer to the music.</li>
+          <li><strong>Land on the beat.</strong> Answering in the pocket pays a bonus.</li>
+          <li><strong>Use the scratchpad.</strong> Draw anywhere on the play area to work it out.</li>
+        </ul>
+        <button id="start-button" class="primary-button" type="button">START</button>
+        <p class="hint">Headphones recommended · sound starts on click</p>
+        <button id="open-settings" class="ghost-button" type="button">Settings</button>
+      </section>
+
+      <!-- Play screen -->
+      <section id="play-screen" hidden>
+        <header id="hud-top">
+          <div class="stat-block">
+            <span class="stat-block__label">SCORE</span>
+            <span id="score" class="stat-block__value">0</span>
+          </div>
+          <div class="stat-block stat-block--center">
+            <span id="tier-label" class="tier-label" data-tier="0">WARMING UP</span>
+            <div class="meter meter--tier"><div id="tier-fill" class="meter__fill"></div></div>
+            <span class="stat-block__sub"><span id="streak">0</span> streak</span>
+          </div>
+          <div class="stat-block stat-block--right">
+            <span class="stat-block__label">TIME</span>
+            <span id="time" class="stat-block__value">90.0</span>
+          </div>
+        </header>
+        <div class="meter meter--time"><div id="time-fill" class="meter__fill"></div></div>
+
+        <div id="play-area">
+          <canvas id="scratchpad"></canvas>
+          <div id="problem-panel">
+            <div id="problem" class="problem" aria-live="polite"></div>
+            <div id="entry" class="entry is-empty" aria-live="polite"> </div>
+            <div class="meter meter--problem">
+              <div id="problem-timer" class="meter__fill"></div>
+            </div>
+          </div>
+          <div id="floaters" aria-hidden="true"></div>
+          <p class="scratch-hint">draw here to work it out</p>
+        </div>
+
+        <div id="keypad" aria-label="Number pad"></div>
+      </section>
+
+      <!-- Results screen -->
+      <section id="results-screen" class="overlay" hidden>
+        <h2 class="results-title">RUN COMPLETE</h2>
+        <p id="result-new-best" class="new-best" hidden>NEW PERSONAL BEST</p>
+        <div class="result-score">
+          <span id="result-score">0</span>
+          <span class="result-score__label">points</span>
+        </div>
+        <p class="result-best">Best: <span id="result-best">0</span></p>
+        <div id="result-stats" class="stats"></div>
+        <button id="again-button" class="primary-button" type="button">GO AGAIN</button>
+        <p class="hint">press Enter to restart</p>
+      </section>
+
+      <!-- Settings -->
+      <section id="settings-panel" class="overlay overlay--panel" hidden>
+        <h2 class="results-title">SETTINGS</h2>
+        <label class="setting">
+          <span>Volume</span>
+          <input id="set-volume" type="range" min="0" max="100" value="80" />
+        </label>
+        <label class="setting setting--check">
+          <input id="set-muted" type="checkbox" />
+          <span>Mute</span>
+        </label>
+        <label class="setting setting--check">
+          <input id="set-reduced-motion" type="checkbox" />
+          <span>Reduce motion</span>
+        </label>
+        <label class="setting setting--check">
+          <input id="set-require-enter" type="checkbox" />
+          <span>Require Enter to submit</span>
+        </label>
+        <label class="setting setting--check">
+          <input id="set-high-contrast" type="checkbox" />
+          <span>High contrast</span>
+        </label>
+        <button id="close-settings" class="primary-button" type="button">DONE</button>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
